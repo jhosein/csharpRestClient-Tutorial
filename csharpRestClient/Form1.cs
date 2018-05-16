@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.IO;
+using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace csharpRestClient
@@ -15,6 +11,27 @@ namespace csharpRestClient
         public Form1()
         {
             InitializeComponent();
+        }
+
+        #region UI Event Handlers
+        private void btnGo_Click(object sender, EventArgs e)
+        {
+            RestClient rClient = new RestClient();
+            rClient.endPoint = txtSerch.Text;
+
+            string strResponse = string.Empty;
+
+            strResponse = rClient.makeRequest();
+
+            txtResponse.Text = strResponse;
+        }
+
+        #endregion
+
+        private void btnJSON_Click(object sender, EventArgs e)
+        {
+            Form jForm = new frmJSON();
+            jForm.Show();
         }
     }
 }
