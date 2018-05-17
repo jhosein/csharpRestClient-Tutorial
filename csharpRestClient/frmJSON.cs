@@ -24,7 +24,7 @@ namespace csharpRestClient
 
         }
 
-        private void deserialize(string strJSON)
+        private void deserializeDynamic(string strJSON)
         {
             try
             {
@@ -32,6 +32,8 @@ namespace csharpRestClient
                                                                                //based on the response.
 
                 txtResult.Text = jPerson.firstName;
+
+
             }
             catch (Exception ex)
             {
@@ -39,9 +41,26 @@ namespace csharpRestClient
             }
         }
 
+        private void deserializeStrong (string strJSON)
+        {
+            try
+            {
+                var jperson = JsonConvert.DeserializeObject<jsonPersonComplex>(strJSON);
+
+                txtResult.Text = jperson.address.city;
+                txtResult.Text += " \n" + jperson.phoneNumbers[1].number.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            deserialize(txtInput.Text);
+            deserializeStrong(txtInput.Text);
         }
     }
 }
